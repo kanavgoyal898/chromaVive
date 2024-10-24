@@ -1,4 +1,6 @@
 jupyterlab
 pandas
+matplotlib
 numpy
+opencv-python
 torch
