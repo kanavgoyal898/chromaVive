@@ -1,7 +1,7 @@
 import torch
 import torch.nn as nn
 
-from normalizer import *
+from src.normalizer import *
 
 # ECCV16 Architecture
 
