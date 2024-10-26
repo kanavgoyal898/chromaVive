@@ -3,6 +3,8 @@ import torch.nn as nn
 
 from normalizer import *
 
+# ECCV16 Architecture
+
 class Architecture(Normalizer):
     """
     Initializes the Architecture model with the specified parameters.
@@ -59,6 +61,9 @@ class Architecture(Normalizer):
             # expansion layer
             nn.Conv2d(self.out_channels, self.out_channels*2, kernel_size=self.kernel_size, stride=self.stride, padding=self.padding, bias=True),
             nn.ReLU(inplace=True),
+            # convolution layer
+            nn.Conv2d(self.out_channels*2, self.out_channels*2, kernel_size=self.kernel_size, stride=self.stride, padding=self.padding, bias=True),
+            nn.ReLU(inplace=True),
             # down-sampling layer
             nn.Conv2d(self.out_channels*2, self.out_channels*2, kernel_size=self.kernel_size, stride=self.stride*2, padding=self.padding, bias=True),
             nn.ReLU(inplace=True),
@@ -71,7 +76,9 @@ class Architecture(Normalizer):
             # expansion layer
             nn.Conv2d(self.out_channels, self.out_channels*2, kernel_size=self.kernel_size, stride=self.stride, padding=self.padding, bias=True),
             nn.ReLU(inplace=True),
-            # down-sampling layer
+            # convolution layer(s)
+            nn.Conv2d(self.out_channels*2, self.out_channels*2, kernel_size=self.kernel_size, stride=self.stride, padding=self.padding, bias=True),
+            nn.ReLU(inplace=True),
             nn.Conv2d(self.out_channels*2, self.out_channels*2, kernel_size=self.kernel_size, stride=self.stride, padding=self.padding, bias=True),
             nn.ReLU(inplace=True),
             norm_layer(self.out_channels*2)
@@ -84,12 +91,16 @@ class Architecture(Normalizer):
             nn.ReLU(inplace=True),
             nn.Conv2d(self.out_channels, self.out_channels, kernel_size=self.kernel_size, stride=self.stride, padding=self.padding*2, dilation=self.stride*2, bias=True),
             nn.ReLU(inplace=True),
-            norm_layer(self.out_channels),
+            nn.Conv2d(self.out_channels, self.out_channels, kernel_size=self.kernel_size, stride=self.stride, padding=self.padding*2, dilation=self.stride*2, bias=True),
+            nn.ReLU(inplace=True),
+            norm_layer(self.out_channels)
         )
         self.out_channels = self.out_channels * 1
 
         # a-trous / dilated convolution2: (32, 32, 512) - > (32, 32, 512)
         self.conv6 = nn.Sequential(
+            nn.Conv2d(self.out_channels, self.out_channels, kernel_size=self.kernel_size, stride=self.stride, padding=self.stride*2, dilation=self.stride*2, bias=True),
+            nn.ReLU(inplace=True),
             nn.Conv2d(self.out_channels, self.out_channels, kernel_size=self.kernel_size, stride=self.stride, padding=self.stride*2, dilation=self.stride*2, bias=True),
             nn.ReLU(inplace=True),
             nn.Conv2d(self.out_channels, self.out_channels, kernel_size=self.kernel_size, stride=self.stride, padding=self.stride*2, dilation=self.stride*2, bias=True),
@@ -100,6 +111,8 @@ class Architecture(Normalizer):
 
         # convolution5: (32, 32, 512) - > (32, 32, 512)
         self.conv7 = nn.Sequential(
+            nn.Conv2d(self.out_channels, self.out_channels, kernel_size=self.kernel_size, stride=self.stride, padding=self.padding, bias=True),
+            nn.ReLU(inplace=True),
             nn.Conv2d(self.out_channels, self.out_channels, kernel_size=self.kernel_size, stride=self.stride, padding=self.padding, bias=True),
             nn.ReLU(inplace=True),
             nn.Conv2d(self.out_channels, self.out_channels, kernel_size=self.kernel_size, stride=self.stride, padding=self.padding, bias=True),
@@ -122,7 +135,7 @@ class Architecture(Normalizer):
         )
         self.out_channels = self.out_channels // 2
 
-        self.out = nn.Conv2d(self.bin_count, self.out_channel_count, kernel_size=1, stride=1, padding=0, bias=True)
+        self.out = nn.Conv2d(self.bin_count, self.out_channel_count, kernel_size=1, stride=1, padding=0, bias=False)
 
         # Bilinear interpolation considers the nearest four pixel values (the surrounding 2x2 grid) and computes the output pixel value based on a weighted average of these pixels. 
         # This results in smoother and more visually appealing upsampled images compared to other methods, like nearest-neighbor interpolation.

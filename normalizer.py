@@ -15,7 +15,7 @@ class Normalizer(nn.Module):
         ab_center (float): Central value for the AB channels, calculated based on ab_norm.
     """
 
-    def __init__(self, l_norm=100, ab_norm=110, l_centeralize=True, ab_centeralize=True):
+    def __init__(self, l_norm=100., ab_norm=110., l_centeralize=True, ab_centeralize=False):
         super().__init__()
 
         self.l_norm = l_norm
@@ -24,8 +24,8 @@ class Normalizer(nn.Module):
         self.l_centeralize = l_centeralize
         self.ab_centeralize = ab_centeralize
 
-        self.l_center = l_norm / 2 if self.l_centeralize else 0
-        self.ab_center = ab_norm / 2 if self.ab_centeralize else 0
+        self.l_center = self.l_norm / 2 if self.l_centeralize else 0
+        self.ab_center = self.ab_norm / 2 if self.ab_centeralize else 0
 
     def normalize_l(self, l_in):
         """
