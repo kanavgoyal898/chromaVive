@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="results">
+        <img src="{{ url_for('static', filename='assets/image.png' )}}" alt="bw/c">
+        <img src="{{ url_for('static', filename='assets/image.png' )}}" alt="bw/c">
+    </div>
+    <div class="result-buttons">
+        <a href="/">
+            <button class="download">Download</button>
+        </a>
+        <a href="/">
+            <button class="retry">Retry</button>
+        </a>
+    </div>
+{% endblock %}

@@ -1,0 +1,690 @@
+@media (max-width: 640px) {
+    :root {
+        --text-color: #FFFFFF;
+        --background-color: #262626;
+        --primary-color: #404040;
+        --secondary-color: #000000;
+    
+        --font-large: 32px;
+        --font-medium: 16px;
+        --font-regular: 12px;
+        --font-family: 'Roboto', sans-serif;
+    }
+    
+    body {
+        text-align: center;
+        color: var(--text-color);
+        background-color: var(--background-color);
+    
+        font-family: var(--font-family);
+    }
+    
+    h1 {
+        font-weight: normal;
+        font-size: var(--font-large);
+    
+        margin-block-start: calc(2 * var(--font-large));
+        margin-block-end: 0px;
+    }
+    
+    h2 {
+        font-weight: lighter;
+        font-size: var(--font-medium);
+    
+        margin-block-start: 0px;
+        margin-block-end: 0px;
+    }
+    
+    a {
+        text-decoration: none;
+        color: var(--text-color);
+    }
+    
+    img {
+        margin-block-start: var(--font-regular);
+        margin-block-end: 0px;
+    
+        max-width: 300px;
+        max-height: fit-content;
+        border-radius: var(--font-medium);
+    }
+    
+    .link {
+        color: var(--text-color);
+        background-color: var(--secondary-color);
+    
+        font-weight: lighter;
+        font-size: var(--font-regular);
+        
+        padding: calc(1/2 * var(--font-medium)) calc(2 * var(--font-medium));
+        width: fit-content;
+    
+        border: none;
+        border-radius: calc(2 * var(--font-regular));
+    
+        margin-block-start: calc(2 * var(--font-regular));
+        margin-block-end: 0px;
+    
+        transition: background-color 0.3s ease;
+    }
+    
+    .upload {
+        color: var(--text-color);
+        background-color: var(--primary-color);
+    
+        font-weight: normal;
+        font-size: var(--font-regular);
+        
+        padding: calc(1/2 * var(--font-medium)) calc(2 * var(--font-medium));
+        width: fit-content;
+    
+        border: none;
+        border-radius: calc(2 * var(--font-regular));
+    
+        margin-block-start: var(--font-regular);
+        margin-block-end: 0px;
+    
+        transition: background-color 0.3s ease;
+    }
+    
+    .instructions {
+        font-weight: lighter;
+        font-size: var(--font-regular);
+    
+        margin-block-start: var(--font-regular);
+        margin-block-end: 0px;
+    }
+    
+    .container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    .link:hover {
+        cursor: pointer;
+        background-color: var(--primary-color);
+    }
+    
+    .upload:hover {
+        cursor: pointer;
+        background-color: var(--secondary-color);
+    }    
+
+    .results {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .result-buttons {
+        gap: 8px;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+
+        margin-block-start: var(--font-regular);
+    }
+
+    .download {
+        color: var(--text-color);
+        background-color: var(--secondary-color);
+    
+        font-weight: lighter;
+        font-size: var(--font-regular);
+        
+        padding: calc(1/2 * var(--font-medium)) calc(2 * var(--font-medium));
+        width: fit-content;
+    
+        border: none;
+        border-radius: calc(2 * var(--font-regular));
+    
+        transition: background-color 0.3s ease;
+    }
+
+    .retry {
+        color: var(--text-color);
+        background-color: var(--primary-color);
+    
+        font-weight: normal;
+        font-size: var(--font-regular);
+        
+        padding: calc(1/2 * var(--font-medium)) calc(2 * var(--font-medium));
+        width: fit-content;
+    
+        border: none;
+        border-radius: calc(2 * var(--font-regular));
+    
+        transition: background-color 0.3s ease;
+    }
+
+    .download:hover {
+        cursor: pointer;
+        background-color: var(--primary-color);
+    }
+    
+    .retry:hover {
+        cursor: pointer;
+        background-color: var(--secondary-color);
+    }  
+}
+
+@media (min-width: 640px) and (max-width: 768px) {
+    :root {
+        --text-color: #FFFFFF;
+        --background-color: #262626;
+        --primary-color: #404040;
+        --secondary-color: #000000;
+    
+        --font-large: 32px;
+        --font-medium: 16px;
+        --font-regular: 12px;
+        --font-family: 'Roboto', sans-serif;
+    }
+    
+    body {
+        text-align: center;
+        color: var(--text-color);
+        background-color: var(--background-color);
+    
+        font-family: var(--font-family);
+    }
+    
+    h1 {
+        font-weight: normal;
+        font-size: var(--font-large);
+    
+        margin-block-start: calc(2 * var(--font-large));
+        margin-block-end: 0px;
+    }
+    
+    h2 {
+        font-weight: lighter;
+        font-size: var(--font-medium);
+    
+        margin-block-start: 0px;
+        margin-block-end: 0px;
+    }
+    
+    a {
+        text-decoration: none;
+        color: var(--text-color);
+    }
+    
+    img {
+        margin-block-start: var(--font-regular);
+        margin-block-end: 0px;
+    
+        max-width: 300px;
+        max-height: fit-content;
+        border-radius: var(--font-medium);
+    }
+    
+    .link {
+        color: var(--text-color);
+        background-color: var(--secondary-color);
+    
+        font-weight: lighter;
+        font-size: var(--font-regular);
+        
+        padding: calc(1/2 * var(--font-medium)) calc(2 * var(--font-medium));
+        width: fit-content;
+    
+        border: none;
+        border-radius: calc(2 * var(--font-regular));
+    
+        margin-block-start: calc(2 * var(--font-regular));
+        margin-block-end: 0px;
+    
+        transition: background-color 0.3s ease;
+    }
+    
+    .upload {
+        color: var(--text-color);
+        background-color: var(--primary-color);
+    
+        font-weight: normal;
+        font-size: var(--font-regular);
+        
+        padding: calc(1/2 * var(--font-medium)) calc(2 * var(--font-medium));
+        width: fit-content;
+    
+        border: none;
+        border-radius: calc(2 * var(--font-regular));
+    
+        margin-block-start: var(--font-regular);
+        margin-block-end: 0px;
+    
+        transition: background-color 0.3s ease;
+    }
+    
+    .instructions {
+        font-weight: lighter;
+        font-size: var(--font-regular);
+    
+        margin-block-start: var(--font-regular);
+        margin-block-end: 0px;
+    }
+    
+    .container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    .link:hover {
+        cursor: pointer;
+        background-color: var(--primary-color);
+    }
+    
+    .upload:hover {
+        cursor: pointer;
+        background-color: var(--secondary-color);
+    }    
+
+    .results {
+        gap: 8px;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+    }
+
+    .result-buttons {
+        gap: 8px;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+
+        margin-block-start: var(--font-regular);
+    }
+
+    .download {
+        color: var(--text-color);
+        background-color: var(--secondary-color);
+    
+        font-weight: lighter;
+        font-size: var(--font-regular);
+        
+        padding: calc(1/2 * var(--font-medium)) calc(2 * var(--font-medium));
+        width: fit-content;
+    
+        border: none;
+        border-radius: calc(2 * var(--font-regular));
+    
+        transition: background-color 0.3s ease;
+    }
+
+    .retry {
+        color: var(--text-color);
+        background-color: var(--primary-color);
+    
+        font-weight: normal;
+        font-size: var(--font-regular);
+        
+        padding: calc(1/2 * var(--font-medium)) calc(2 * var(--font-medium));
+        width: fit-content;
+    
+        border: none;
+        border-radius: calc(2 * var(--font-regular));
+    
+        transition: background-color 0.3s ease;
+    }
+
+    .download:hover {
+        cursor: pointer;
+        background-color: var(--primary-color);
+    }
+    
+    .retry:hover {
+        cursor: pointer;
+        background-color: var(--secondary-color);
+    }  
+}
+
+@media (min-width: 768px) and (max-width: 1200px) {
+    :root {
+        --text-color: #FFFFFF;
+        --background-color: #262626;
+        --primary-color: #404040;
+        --secondary-color: #000000;
+    
+        --font-large: 32px;
+        --font-medium: 16px;
+        --font-regular: 12px;
+        --font-family: 'Roboto', sans-serif;
+    }
+    
+    body {
+        text-align: center;
+        color: var(--text-color);
+        background-color: var(--background-color);
+    
+        font-family: var(--font-family);
+    }
+    
+    h1 {
+        font-weight: normal;
+        font-size: var(--font-large);
+    
+        margin-block-start: calc(2 * var(--font-large));
+        margin-block-end: 0px;
+    }
+    
+    h2 {
+        font-weight: lighter;
+        font-size: var(--font-medium);
+    
+        margin-block-start: 0px;
+        margin-block-end: 0px;
+    }
+    
+    a {
+        text-decoration: none;
+        color: var(--text-color);
+    }
+    
+    img {
+        margin-block-start: var(--font-regular);
+        margin-block-end: 0px;
+    
+        max-width: 360px;
+        max-height: fit-content;
+        border-radius: var(--font-medium);
+    }
+    
+    .link {
+        color: var(--text-color);
+        background-color: var(--secondary-color);
+    
+        font-weight: lighter;
+        font-size: var(--font-regular);
+        
+        padding: calc(1/2 * var(--font-medium)) calc(2 * var(--font-medium));
+        width: fit-content;
+    
+        border: none;
+        border-radius: calc(2 * var(--font-regular));
+    
+        margin-block-start: calc(2 * var(--font-regular));
+        margin-block-end: 0px;
+    
+        transition: background-color 0.3s ease;
+    }
+    
+    .upload {
+        color: var(--text-color);
+        background-color: var(--primary-color);
+    
+        font-weight: normal;
+        font-size: var(--font-regular);
+        
+        padding: calc(1/2 * var(--font-medium)) calc(2 * var(--font-medium));
+        width: fit-content;
+    
+        border: none;
+        border-radius: calc(2 * var(--font-regular));
+    
+        margin-block-start: var(--font-regular);
+        margin-block-end: 0px;
+    
+        transition: background-color 0.3s ease;
+    }
+    
+    .instructions {
+        font-weight: lighter;
+        font-size: var(--font-regular);
+    
+        margin-block-start: var(--font-regular);
+        margin-block-end: 0px;
+    }
+    
+    .container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    .link:hover {
+        cursor: pointer;
+        background-color: var(--primary-color);
+    }
+    
+    .upload:hover {
+        cursor: pointer;
+        background-color: var(--secondary-color);
+    }    
+
+    .results {
+        gap: 8px;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+    }
+
+    .result-buttons {
+        gap: 8px;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+
+        margin-block-start: var(--font-regular);
+    }
+
+    .download {
+        color: var(--text-color);
+        background-color: var(--secondary-color);
+    
+        font-weight: lighter;
+        font-size: var(--font-regular);
+        
+        padding: calc(1/2 * var(--font-medium)) calc(2 * var(--font-medium));
+        width: fit-content;
+    
+        border: none;
+        border-radius: calc(2 * var(--font-regular));
+    
+        transition: background-color 0.3s ease;
+    }
+
+    .retry {
+        color: var(--text-color);
+        background-color: var(--primary-color);
+    
+        font-weight: normal;
+        font-size: var(--font-regular);
+        
+        padding: calc(1/2 * var(--font-medium)) calc(2 * var(--font-medium));
+        width: fit-content;
+    
+        border: none;
+        border-radius: calc(2 * var(--font-regular));
+    
+        transition: background-color 0.3s ease;
+    }
+
+    .download:hover {
+        cursor: pointer;
+        background-color: var(--primary-color);
+    }
+    
+    .retry:hover {
+        cursor: pointer;
+        background-color: var(--secondary-color);
+    }  
+}
+
+@media (min-width: 1200px) {
+    :root {
+        --text-color: #FFFFFF;
+        --background-color: #262626;
+        --primary-color: #404040;
+        --secondary-color: #000000;
+    
+        --font-large: 48px;
+        --font-medium: 24px;
+        --font-regular: 18px;
+        --font-family: 'Roboto', sans-serif;
+    }
+    
+    body {
+        text-align: center;
+        color: var(--text-color);
+        background-color: var(--background-color);
+    
+        font-family: var(--font-family);
+    }
+    
+    h1 {
+        font-weight: normal;
+        font-size: var(--font-large);
+    
+        margin-block-start: var(--font-large);
+        margin-block-end: 0px;
+    }
+    
+    h2 {
+        font-weight: lighter;
+        font-size: var(--font-medium);
+    
+        margin-block-start: 0px;
+        margin-block-end: 0px;
+    }
+    
+    a {
+        text-decoration: none;
+        color: var(--text-color);
+    }
+    
+    img {
+        margin-block-start: var(--font-regular);
+        margin-block-end: 0px;
+    
+        max-width: 600px;
+        max-height: fit-content;
+        border-radius: var(--font-medium);
+    }
+    
+    .link {
+        color: var(--text-color);
+        background-color: var(--secondary-color);
+    
+        font-weight: lighter;
+        font-size: var(--font-regular);
+        
+        padding: calc(1/2 * var(--font-medium)) calc(2 * var(--font-medium));
+        width: fit-content;
+    
+        border: none;
+        border-radius: calc(2 * var(--font-regular));
+    
+        margin-block-start: var(--font-regular);
+        margin-block-end: 0px;
+    
+        transition: background-color 0.3s ease;
+    }
+    
+    .upload {
+        color: var(--text-color);
+        background-color: var(--primary-color);
+    
+        font-weight: normal;
+        font-size: var(--font-regular);
+        
+        padding: calc(1/2 * var(--font-medium)) calc(2 * var(--font-medium));
+        width: fit-content;
+    
+        border: none;
+        border-radius: calc(2 * var(--font-regular));
+    
+        margin-block-start: calc(2 * var(--font-regular));
+        margin-block-end: 0px;
+    
+        transition: background-color 0.3s ease;
+    }
+    
+    .instructions {
+        font-weight: lighter;
+        font-size: var(--font-regular);
+    
+        margin-block-start: var(--font-regular);
+        margin-block-end: 0px;
+    }
+    
+    .container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    .link:hover {
+        cursor: pointer;
+        background-color: var(--primary-color);
+    }
+    
+    .upload:hover {
+        cursor: pointer;
+        background-color: var(--secondary-color);
+    }   
+    
+    .results {
+        gap: 8px;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+    }
+
+    .result-buttons {
+        gap: 8px;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+
+        margin-block-start: var(--font-regular);
+    }
+
+    .download {
+        color: var(--text-color);
+        background-color: var(--secondary-color);
+    
+        font-weight: lighter;
+        font-size: var(--font-regular);
+        
+        padding: calc(1/2 * var(--font-medium)) calc(2 * var(--font-medium));
+        width: fit-content;
+    
+        border: none;
+        border-radius: calc(2 * var(--font-regular));
+    
+        transition: background-color 0.3s ease;
+    }
+
+    .retry {
+        color: var(--text-color);
+        background-color: var(--primary-color);
+    
+        font-weight: normal;
+        font-size: var(--font-regular);
+        
+        padding: calc(1/2 * var(--font-medium)) calc(2 * var(--font-medium));
+        width: fit-content;
+    
+        border: none;
+        border-radius: calc(2 * var(--font-regular));
+    
+        transition: background-color 0.3s ease;
+    }
+
+    .download:hover {
+        cursor: pointer;
+        background-color: var(--primary-color);
+    }
+    
+    .retry:hover {
+        cursor: pointer;
+        background-color: var(--secondary-color);
+    }  
+}
