@@ -3,14 +3,17 @@
 {% block content %}
     <div>
         <a href="https://richzhang.github.io/colorization/" target="_blank">
-            <button class="link">Link</button>
+            <button class="link">Read Docs</button>
         </a>
     </div>
     <img src="{{ url_for('static', filename='assets/image.png' )}}" alt="bw/c" height="400vh">
     <div>
-        <a href="/result">
-            <button class="upload">Upload</button>
-        </a>
+        <form action="/" method="POST" enctype="multipart/form-data">
+            <label class="upload">
+                <input type="file" name="image" accept=".jpeg, .jpg, .png" required onchange="this.form.submit()" hidden>
+                Upload
+            </label>
+        </form>
     </div>
     <div class="instructions">The image must be in .jpg, .jpeg or .png format.</div>
 {% endblock %}
