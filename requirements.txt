@@ -3,4 +3,5 @@ pandas
 matplotlib
 numpy
 opencv-python
+scikit-image
 torch
