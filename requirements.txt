@@ -1,3 +1,5 @@
+Flask
+Flask-Session
 jupyterlab
 pandas
 matplotlib
