@@ -14,7 +14,8 @@ Session(app)
 
 device = 'cuda' if torch.cuda.is_available() else 'mps' if torch.backends.mps.is_available() else 'cpu'
 colorizer_eccv16 = eccv16(pretrained=True).eval().to(device)
-print(f'Colorizer ECCV16 loaded on {device}')
+colorizer_siggraph17 = siggraph17(pretrained=True).eval().to(device)
+print(f'colorizers loaded on {device}')
 
 def tensor_to_encoded_image(tensor):
     if isinstance(tensor, torch.Tensor):
@@ -53,21 +54,38 @@ def result():
     tens_l_rs = tens_l_rs.to(device)
     img_bw = postprocess_tens(tens_l_orig, torch.cat((0 * tens_l_orig, 0 * tens_l_orig), dim=1))
     out_img_eccv16 = postprocess_tens(tens_l_orig, colorizer_eccv16(tens_l_rs).cpu())
+    out_img_siggraph17 = postprocess_tens(tens_l_orig, colorizer_siggraph17(tens_l_rs).cpu())
     img_bw = tensor_to_encoded_image(img_bw)
     out_img_eccv16 = tensor_to_encoded_image(out_img_eccv16)
-    return render_template('result.html', encoded_image=encoded_image, file_extension=file_extension, img_bw=img_bw, out_img_eccv16=out_img_eccv16)
+    out_img_siggraph17 = tensor_to_encoded_image(out_img_siggraph17)
+    session['img_bw'] = img_bw
+    session['out_img_eccv16'] = out_img_eccv16
+    session['out_img_siggraph17'] = out_img_siggraph17
+    return render_template('result.html', encoded_image=encoded_image, file_extension=file_extension, img_bw=img_bw, out_img_eccv16=out_img_eccv16, out_img_siggraph17=out_img_siggraph17)
 
-@app.route('/download')
-def download():
-    encoded_image = session.get('uploaded_image')
+@app.route('/download16')
+def download16():
+    encoded_image = session.get('out_img_eccv16')
     file_extension = session.get('file_extension', 'jpg')
     if encoded_image:
         image_data = base64.b64decode(encoded_image)
         mime_type = 'image/jpeg' if file_extension in ['jpg', 'jpeg'] else 'image/png'
-        filename = f"downloaded_image.{file_extension}"
+        filename = f"downloaded_image_16.{file_extension}"
+        return send_file(io.BytesIO(image_data), mimetype=mime_type, as_attachment=True, download_name=filename)
+    else:
+        return redirect(url_for('result'))
+    
+@app.route('/download17')
+def download17():
+    encoded_image = session.get('out_img_siggraph17')
+    file_extension = session.get('file_extension', 'jpg')
+    if encoded_image:
+        image_data = base64.b64decode(encoded_image)
+        mime_type = 'image/jpeg' if file_extension in ['jpg', 'jpeg'] else 'image/png'
+        filename = f"downloaded_image_17.{file_extension}"
         return send_file(io.BytesIO(image_data), mimetype=mime_type, as_attachment=True, download_name=filename)
     else:
         return redirect(url_for('result'))
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run()
