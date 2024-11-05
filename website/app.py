@@ -1,8 +1,9 @@
 from flask import Flask, render_template, url_for, redirect, send_file, request, session
 from flask_session import Session
 import io
-import os
 import base64
+
+from colorizers import *
 
 app = Flask(__name__)
 app.secret_key = '0123456789'
@@ -10,6 +11,20 @@ app.config['SESSION_TYPE'] = 'filesystem'
 app.config['SESSION_FILE_DIR'] = './flask_session/'
 app.config['SESSION_PERMANENT'] = False
 Session(app)
+
+device = 'cuda' if torch.cuda.is_available() else 'mps' if torch.backends.mps.is_available() else 'cpu'
+colorizer_eccv16 = eccv16(pretrained=True).eval().to(device)
+print(f'Colorizer ECCV16 loaded on {device}')
+
+def tensor_to_encoded_image(tensor):
+    if isinstance(tensor, torch.Tensor):
+        tensor = tensor.detach().cpu().numpy()
+    img_array = np.clip(tensor * 255, 0, 255).astype(np.uint8)
+    img = Image.fromarray(img_array)
+    buffered = io.BytesIO()
+    img.save(buffered, format="PNG")
+    img_str = base64.b64encode(buffered.getvalue()).decode('utf-8')
+    return img_str
 
 @app.route('/', methods=['GET', 'POST'])
 def home():
@@ -31,7 +46,16 @@ def home():
 def result():
     encoded_image = session.get('uploaded_image')
     file_extension = session.get('file_extension', 'jpg')
-    return render_template('result.html', encoded_image=encoded_image, file_extension=file_extension)
+    image = io.BytesIO(base64.b64decode(encoded_image))
+    
+    img = load_img(image)
+    tens_l_orig, tens_l_rs = preprocess_img(img, HW=(256,256))
+    tens_l_rs = tens_l_rs.to(device)
+    img_bw = postprocess_tens(tens_l_orig, torch.cat((0 * tens_l_orig, 0 * tens_l_orig), dim=1))
+    out_img_eccv16 = postprocess_tens(tens_l_orig, colorizer_eccv16(tens_l_rs).cpu())
+    img_bw = tensor_to_encoded_image(img_bw)
+    out_img_eccv16 = tensor_to_encoded_image(out_img_eccv16)
+    return render_template('result.html', encoded_image=encoded_image, file_extension=file_extension, img_bw=img_bw, out_img_eccv16=out_img_eccv16)
 
 @app.route('/download')
 def download():
