@@ -2,20 +2,19 @@
 
 {% block content %}
     <div class="results">
-        <img src="{{ url_for('static', filename='assets/image.png') }}" alt="bw/c">
-        <img src="{{ url_for('static', filename='assets/image.png') }}" alt="bw/c">
+        {% if encoded_image %}
+            <img src="data:image/jpeg;base64,{{ encoded_image }}" alt="uploaded image">
+            <img src="data:image/jpeg;base64,{{ encoded_image }}" alt="uploaded image">
+        {% else %}
+            <p>No image uploaded.</p>
+        {% endif %}
     </div>
     <div class="result-buttons">
-        <a href="/">
+        <a href="{{ url_for('download') }}">
             <button class="download">Download</button>
         </a>
-        <form action="/" method="POST" enctype="multipart/form-data">
-            <button class="retry">
-                <label >
-                    <input type="file" name="image" accept=".jpeg, .jpg, .png" required onchange="this.form.submit()" hidden>
-                    Retry
-                </label>
-            </button>
-        </form>
+        <a href="{{ url_for('home') }}">
+            <button class="retry">Retry</button>
+        </a>
     </div>
 {% endblock %}
