@@ -1,12 +1,13 @@
 from flask import Flask, render_template, url_for, redirect, send_file, request, session
 from flask_session import Session
 import io
+import os
 import base64
 
 from colorizers import *
 
 app = Flask(__name__)
-app.secret_key = '0123456789'
+app.secret_key = os.getenv('SECRET_KEY', '1234567890')
 app.config['SESSION_TYPE'] = 'filesystem'
 app.config['SESSION_FILE_DIR'] = './flask_session/'
 app.config['SESSION_PERMANENT'] = False
