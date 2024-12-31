@@ -1,6 +1,6 @@
-# ChromaVive: Deep Learning-Powered Image Colorization
+# chromaVive: Deep Learning-Powered Image Colorization
 
-ChromaVive is a web application that transforms grayscale images into vibrant, colorized ones. The underlying technology leverages two state-of-the-art deep learning models developed by Richard Zhang and his team at **UC Berkeley**. This README will delve into the research papers behind these models, **ECCV16** and **SIGGRAPH17**, which have pushed the boundaries of automatic and user-guided image colorization.
+chromaVive is a web application that transforms grayscale images into vibrant, colorized ones. The underlying technology leverages two state-of-the-art deep learning models developed by Richard Zhang and his team at **UC Berkeley**. This README will delve into the research papers behind these models, **ECCV16** and **SIGGRAPH17**, which have pushed the boundaries of automatic and user-guided image colorization.
 
 <div style="text-align: center;">
   <img src="./demo.png" alt="chromaVive" style="width: 100%;">
@@ -35,9 +35,9 @@ This paper extends colorization capabilities by incorporating user interaction i
 
 This user-guided approach represents a shift from fully automatic to semi-automatic colorization, blending the efficiency of deep learning with human creativity and preferences. It’s ideal for applications where historical accuracy or artistic interpretation is important.
 
-## Application in ChromaVive
+## Application in chromaVive
 
-In ChromaVive, users can choose between these two models:
+In chromaVive, users can choose between these two models:
 - **ECCV16**: For automatic colorization, where the model independently generates colorized versions.
 - **SIGGRAPH17**: For user-guided colorization, where users can provide color hints to influence the colorization output interactively.
 
@@ -73,7 +73,7 @@ Open your browser and navigate to `http://localhost:5000` to begin colorizing im
 
 ## Acknowledgments and Credits
 
-ChromaVive is powered by the work of *Richard Zhang, Phillip Isola, Alexei A. Efros*, and others, whose research in deep learning for image colorization has made significant contributions to both computer vision and graphics.
+chromaVive is powered by the work of *Richard Zhang, Phillip Isola, Alexei A. Efros*, and others, whose research in deep learning for image colorization has made significant contributions to both computer vision and graphics.
 
 - [ECCV16 Project Page](http://richzhang.github.io/colorization/) by Richard Zhang et al.
 - [SIGGRAPH17 Project Page](http://richzhang.github.io/InteractiveColorization/) by Richard Zhang et al.
