@@ -13,13 +13,13 @@
         </a>
     </div>
     <div class="results">
-        {% if encoded_image %}
+        {% if out_img_eccv16 and out_img_siggraph17 %}
             <div class="image-card">
-                <img src="data:image/jpeg;base64,{{ out_img_eccv16 }}" alt="l_image">
+                <img src="data:image/jpeg;base64, {{ out_img_eccv16 }}" alt="l_image">
                 <p>ECCV16</p>
             </div>
             <div class="image-card">
-                <img src="data:image/jpeg;base64,{{ out_img_siggraph17 }}" alt="lab_image">
+                <img src="data:image/jpeg;base64, {{ out_img_siggraph17 }}" alt="lab_image">
                 <p>SIGGRAPH17</p>
             </div>
         {% else %}
