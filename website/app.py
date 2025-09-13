@@ -18,13 +18,13 @@ colorizer_eccv16 = eccv16(pretrained=True).eval().to(device)
 colorizer_siggraph17 = siggraph17(pretrained=True).eval().to(device)
 print(f'colorizers loaded on {device}')
 
-def tensor_to_encoded_image(tensor):
+def tensor_to_encoded_image(tensor, file_extension='png'):
     if isinstance(tensor, torch.Tensor):
         tensor = tensor.detach().cpu().numpy()
     img_array = np.clip(tensor * 255, 0, 255).astype(np.uint8)
     img = Image.fromarray(img_array)
     buffered = io.BytesIO()
-    img.save(buffered, format="PNG")
+    img.save(buffered, format=file_extension)
     img_str = base64.b64encode(buffered.getvalue()).decode('utf-8')
     return img_str
 
@@ -51,16 +51,13 @@ def home():
 @app.route('/result', methods=['GET'])
 def result():
     temp_path = session.get('uploaded_file')
-    file_extension = session.get('file_extension', 'jpg')
+    file_extension = session.get('file_extension', 'png')
 
     if not temp_path or not os.path.exists(temp_path):
         return redirect(url_for('home'))
 
     img = load_img(temp_path)
-    with open(temp_path, "rb") as f:
-        encoded_image = base64.b64encode(f.read()).decode("utf-8")
-
-    tens_l_orig, tens_l_rs = preprocess_img(img, HW=(256,256))
+    tens_l_orig, tens_l_rs = preprocess_img(img, HW=(256, 256))
     tens_l_rs = tens_l_rs.to(device)
 
     out_img_eccv16 = postprocess_tens(tens_l_orig, colorizer_eccv16(tens_l_rs).cpu())
@@ -68,8 +65,7 @@ def result():
 
     def save_temp_image(img_tensor, suffix):
         img_str = tensor_to_encoded_image(img_tensor)
-        file_ext = "png"
-        temp_filename = f"{uuid.uuid4().hex}_{suffix}.{file_ext}"
+        temp_filename = f"{uuid.uuid4().hex}_{suffix}.{file_extension}"
         temp_path = os.path.join(tempfile.gettempdir(), temp_filename)
         with open(temp_path, "wb") as f:
             f.write(base64.b64decode(img_str))
@@ -78,7 +74,6 @@ def result():
     eccv16_path, out_img_eccv16 = save_temp_image(out_img_eccv16, "eccv16")
     siggraph17_path, out_img_siggraph17 = save_temp_image(out_img_siggraph17, "siggraph17")
 
-    session['file_extension'] = file_extension
     session['out_img_eccv16'] = eccv16_path
     session['out_img_siggraph17'] = siggraph17_path
 
