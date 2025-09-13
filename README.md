@@ -59,15 +59,15 @@ To use the application, please install the dependencies and set up the pre-train
    ```bash
    pip install -r requirements.txt
    ```
-3. **Navigate to the `website` directory**:
+3. **Navigate to the `src` directory**:
    ```bash
-   cd website
+   cd src
    ```
 
 ### Usage
 Run the Flask server with:
 ```bash
-python app.py
+flask run
 ```
 Open your browser and navigate to `http://localhost:5000` to begin colorizing images.
 

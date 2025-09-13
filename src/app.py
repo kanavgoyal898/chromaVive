@@ -8,10 +8,10 @@ import uuid
 import base64
 import tempfile
 
-from colorizers import *
+from colorization.colorizers import *
 
 app = Flask(__name__)
-app.secret_key = os.getenv('SECRET_KEY', '1234567890')
+app.secret_key = os.getenv('SECRET_KEY', '0123456789')
 
 device = 'cuda' if torch.cuda.is_available() else 'mps' if torch.backends.mps.is_available() else 'cpu'
 colorizer_eccv16 = eccv16(pretrained=True).eval().to(device)
