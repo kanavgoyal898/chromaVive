@@ -18,15 +18,18 @@ colorizer_eccv16 = eccv16(pretrained=True).eval().to(device)
 colorizer_siggraph17 = siggraph17(pretrained=True).eval().to(device)
 print(f'colorizers loaded on {device}')
 
-def tensor_to_encoded_image(tensor, file_extension='png'):
+def tensor_to_encoded_image(tensor, file_extension='PNG'):
     if isinstance(tensor, torch.Tensor):
         tensor = tensor.detach().cpu().numpy()
-    img_array = np.clip(tensor * 255, 0, 255).astype(np.uint8)
-    img = Image.fromarray(img_array)
+
+    # tensor: (H, W, 3) in RGB format with values in [0, 1]
+    img = np.clip(tensor * 255, 0, 255).astype(np.uint8)
+    img = Image.fromarray(img)
+    
     buffered = io.BytesIO()
     img.save(buffered, format=file_extension)
-    img_str = base64.b64encode(buffered.getvalue()).decode('utf-8')
-    return img_str
+    img = base64.b64encode(buffered.getvalue()).decode('utf-8')
+    return img
 
 @app.route('/', methods=['GET', 'POST'])
 def home():
@@ -37,13 +40,13 @@ def home():
         if file.filename == '':
             return redirect(request.url)
         if file:
-            file_ext = file.filename.split('.')[-1].lower()
-            temp_filename = f"{uuid.uuid4().hex}.{file_ext}"
+            file_extension = file.filename.split('.')[-1].upper()
+            temp_filename = f"{uuid.uuid4().hex}.{file_extension}"
             temp_path = os.path.join(tempfile.gettempdir(), temp_filename)
             file.save(temp_path)
 
             session['uploaded_file'] = temp_path
-            session['file_extension'] = file_ext
+            session['file_extension'] = file_extension
             return redirect(url_for('result'))
 
     return render_template('index.html')
@@ -51,7 +54,7 @@ def home():
 @app.route('/result', methods=['GET'])
 def result():
     temp_path = session.get('uploaded_file')
-    file_extension = session.get('file_extension', 'png')
+    file_extension = session.get('file_extension', 'PNG')
 
     if not temp_path or not os.path.exists(temp_path):
         return redirect(url_for('home'))
@@ -79,6 +82,7 @@ def result():
 
     return render_template(
         'result.html',
+        file_extension=file_extension,
         out_img_eccv16=out_img_eccv16,
         out_img_siggraph17=out_img_siggraph17
     )
@@ -86,7 +90,7 @@ def result():
 @app.route('/download16')
 def download16():
     file_path = session.get('out_img_eccv16')
-    extension = session.get('file_extension', 'png')
+    extension = session.get('file_extension', 'PNG')
     if file_path and os.path.exists(file_path):
         return send_file(file_path, mimetype=f"image/{extension}", as_attachment=True, download_name=f"eccv16.{extension}")
     return redirect(url_for('result'))
@@ -94,7 +98,7 @@ def download16():
 @app.route('/download17')
 def download17():
     file_path = session.get('out_img_siggraph17')
-    extension = session.get('file_extension', 'png')
+    extension = session.get('file_extension', 'PNG')
     if file_path and os.path.exists(file_path):
         return send_file(file_path, mimetype=f"image/{extension}", as_attachment=True, download_name=f"siggraph17.{extension}")
     return redirect(url_for('result'))

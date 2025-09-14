@@ -15,16 +15,15 @@
     <div class="results">
         {% if out_img_eccv16 and out_img_siggraph17 %}
             <div class="image-card">
-                <img src="data:image/jpeg;base64, {{ out_img_eccv16 }}" alt="l_image">
+                <img src="data:image/{{ file_extension }};base64, {{ out_img_eccv16 }}" alt="eccv16_image">
                 <p>ECCV16</p>
             </div>
             <div class="image-card">
-                <img src="data:image/jpeg;base64, {{ out_img_siggraph17 }}" alt="lab_image">
+                <img src="data:image/{{ file_extension }};base64, {{ out_img_siggraph17 }}" alt="siggraph17_image">
                 <p>SIGGRAPH17</p>
             </div>
         {% else %}
             <p>No image uploaded.</p>
         {% endif %}
     </div>
-    
 {% endblock %}
